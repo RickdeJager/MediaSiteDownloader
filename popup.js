@@ -63,11 +63,19 @@ function blobToJson(blob) {
 
 function extractLink(jsonString) {
 	var mp4Regex = /https?:\/\/[\w\d-]*\.?([\d\w-]*\.)*[\w\d]*\/[\w\d-\/]*\.mp4/
+	var ismRegex = /https?:\/\/[\w\d-]*\.?([\d\w-]*\.)*[\w\d]*\/[\w\d-\/]*\.ism/
 	var json = JSON.parse(jsonString).d;
 	//Get last stream
 	var videoUrlID = json.Presentation.Streams[stream].VideoUrls.length - 1;
-	var link = mp4Regex.exec(json.Presentation.Streams[stream].VideoUrls[videoUrlID].Location)[0];
-	downloadAsMp4(link);
+	var possibleLinks = json.Presentation.Streams[stream].VideoUrls[videoUrlID].Location;
+	var links = mp4Regex.exec(possibleLinks);
+	if (links) {
+		downloadAsMp4(links[0]);
+	} else {
+		//var ismLinks = ismRegex.exec(possibleLinks);
+		var ismLinks = possibleLinks;
+		alert("Chuck this into youtube-dl to download: youtube-dl \""+ismLinks+"\"");
+	}
 }
 
 function downloadAsMp4(link) {
