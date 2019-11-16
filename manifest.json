@@ -4,14 +4,14 @@
   "description": "A simple download helper to grab mp4 files from MediaSite.",
   "permissions": ["downloads", "activeTab", "declarativeContent", "storage"],
   "background": {
-      "scripts": ["background.js"],
-      "persistent": false
-    },
-  "page_action": {
-      "default_popup": "popup.html"
-    },
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
   "manifest_version": 2,
   "icons": {
-      "128": "images/icon.png"
+    "128": "images/icon.png"
   }
 }
